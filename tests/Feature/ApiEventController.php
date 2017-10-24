@@ -6,8 +6,15 @@ use App\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class ApiEventController.
+ *
+ * @package Tests\Feature
+ */
 class ApiEventController extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * TEst show events via api
      *
@@ -19,7 +26,6 @@ class ApiEventController extends TestCase
         $events = factory(Event::class,5)->create();
         $response = $this->json('GET','/api/events');
         $response->assertSuccessful();
-//        $response->dump();
         $response->assertJsonStructure([[
             'id','name','created_at','updated_at'
         ]]);
