@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/events', 'APIEventsController@index');
+Route::get('/events/{event}', 'APIEventsController@show');
 
 

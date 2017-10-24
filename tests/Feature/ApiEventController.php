@@ -15,7 +15,7 @@ class ApiEventController extends TestCase
      */
     public function testShowEventsViaApi()
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
         $events = factory(Event::class,5)->create();
         $response = $this->json('GET','/api/events');
         $response->assertSuccessful();
@@ -23,6 +23,28 @@ class ApiEventController extends TestCase
         $response->assertJsonStructure([[
             'id','name','created_at','updated_at'
         ]]);
+    }
+
+    /**
+     * TEst show events via api
+     *
+     * @return void
+     */
+    public function testShowEventViaApi()
+    {
+//        $this->withoutExceptionHandling();
+        $event = factory(Event::class)->create();
+        $response = $this->json('GET','/api/events/' . $event->id);
+        $response->assertSuccessful();
+        $response->assertJsonStructure([
+            'id','name','created_at','updated_at'
+        ]);
+        $response->assertJson([
+            'id' => $event->id,
+            'name' => $event->name,
+            'created_at' => $event->created_at,
+            'updated_at' => $event->updated_at,
+        ]);
     }
 
     /**

@@ -12,11 +12,13 @@ use Illuminate\Http\Request;
  */
 class APIEventsController extends Controller
 {
-    /**
-     *
-     */
     public function index()
     {
         return Event::all();
+    }
+
+    public function show(Event $event)
+    {
+        return $event;
     }
 }
